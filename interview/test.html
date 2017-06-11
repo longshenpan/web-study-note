@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>测试</title>
+</head>
+<body>
+  <input type="text" name="name" id="test" />
+  <script type="text/javascript">
+    function debounce(idle, action) {
+      var last;
+      return function () {
+        var ctx = this, args = arguments;
+        console.log(args);
+        clearTimeout(last);
+        last = setTimeout(function () {
+          action.apply(ctx, args);
+        }, idle);
+      }
+    }
+    var testDom = document.querySelector("#test");
+    testDom.onkeyup = debounce(3000, function (event) {
+      console.log(event);
+    });
+
+    function throttle(delay, action) {
+      var last = 0;
+      return function () {
+        var cur = +new Date();
+        if (cur-last > delay) {
+          action.apply(this, arguments);
+          last = cur;
+        }
+      }
+    }
+  </script>
+</body>
+</html>
